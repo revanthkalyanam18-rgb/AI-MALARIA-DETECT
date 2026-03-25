@@ -1,13 +1,11 @@
 streamlit
-tensorflow
-numpy
+tensorflow==2.15.0
+numpy==1.26.4
 pillow
-opencv-python
+opencv-python-headless
 pandas
 matplotlib
 scikit-learn
 python-dotenv
 reportlab
 groq
-torch
-torchvision
