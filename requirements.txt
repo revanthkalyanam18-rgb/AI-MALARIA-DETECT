@@ -1,5 +1,7 @@
 streamlit
 tensorflow==2.15.0
+torch
+torchvision
 numpy==1.26.4
 pillow
 opencv-python-headless
