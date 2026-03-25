@@ -1,0 +1,5 @@
+malaria_report.pdf
+cell_images
+data
+training/malaria_model.pth
+.env
