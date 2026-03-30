@@ -159,9 +159,13 @@ st.subheader("🔬 Sample Upload")
 
 uploaded_file = st.file_uploader("Upload Blood Cell Image", type=["jpg", "png", "jpeg"])
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+groq_api_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
+client = Groq(api_key=groq_api_key)
 #------------------------
 def generate_llama_analysis(name, age, blood_group, test_date, result, conf, severity):
+
+    if client is None:
+        return "AI medical report could not be generated because GROQ_API_KEY is missing or invalid."
 
     prompt = f"""
 You are a medical AI assistant generating a malaria diagnostic report.
@@ -198,13 +202,15 @@ Generate a structured clinical report with sections:
 Write about 12–15 lines in a professional medical tone.
 """
 
-    completion = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[{"role": "user", "content": prompt}]
-    )
+    try:
+        completion = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return completion.choices[0].message.content
 
-    return completion.choices[0].message.content
-
+    except Exception as e:
+        return f"AI report generation failed: {str(e)}"
 # -------------------------
 # Prediction Logic
 # -------------------------
