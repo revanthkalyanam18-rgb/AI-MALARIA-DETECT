@@ -42,4 +42,4 @@ for epoch in range(1):
 
 torch.save(model.state_dict(),"malaria_model.pth")
 
-print("Model saved!")
+print("Model saved!")b 

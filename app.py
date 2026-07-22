@@ -160,7 +160,13 @@ st.subheader("🔬 Sample Upload")
 uploaded_file = st.file_uploader("Upload Blood Cell Image", type=["jpg", "png", "jpeg"])
 
 groq_api_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
+
+if not groq_api_key:
+    st.error("GROQ_API_KEY is missing.")
+    st.stop()
+
 client = Groq(api_key=groq_api_key)
+
 #------------------------
 def generate_llama_analysis(name, age, blood_group, test_date, result, conf, severity):
 
@@ -204,7 +210,7 @@ Write about 12–15 lines in a professional medical tone.
 
     try:
         completion = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="gpt-oss-20b",
             messages=[{"role": "user", "content": prompt}]
         )
         return completion.choices[0].message.content

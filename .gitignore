@@ -3,3 +3,5 @@ cell_images
 data
 training/malaria_model.pth
 .env
+.streamlit/secrets.toml
+.env
